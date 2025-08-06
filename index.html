@@ -18,7 +18,7 @@
     }
 
     .container {
-      max-width: 700px;
+      max-width: 800px;
       margin: 50px auto;
       padding: 30px;
       background: #ffffff;
@@ -28,7 +28,7 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: #2c3e50;
     }
 
@@ -79,44 +79,31 @@
 
     .results {
       margin-top: 30px;
-      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .result-box {
+      flex: 1 1 calc(50% - 20px);
       background: #fdfdfd;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    .results p {
-      font-size: 16px;
-      margin: 10px 0;
-    }
-
-    .cubes {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .cube {
-      width: 120px;
-      height: 120px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      border-radius: 10px;
-      color: white;
-      font-size: 18px;
+      justify-content: center;
       font-weight: bold;
+      text-align: center;
     }
 
-    .sand {
-      background: #f39c12;
-    }
-
-    .metal {
-      background: #7f8c8d;
-    }
+    .cement { background-color: #c0392b; color: white; }
+    .sand { background-color: #f39c12; color: white; }
+    .metal { background-color: #7f8c8d; color: white; }
+    .wet { background-color: #3498db; color: white; }
+    .dry { background-color: #2ecc71; color: white; }
 
     @media (max-width: 600px) {
       .form-group {
@@ -130,6 +117,14 @@
 
       .ratio-group input {
         width: 100%;
+      }
+
+      .results {
+        flex-direction: column;
+      }
+
+      .result-box {
+        flex: 1 1 100%;
       }
     }
   </style>
@@ -193,21 +188,28 @@
       const aggregateCubes = aggregateVolume / 100;
 
       document.getElementById("results").innerHTML = `
-        <p><strong>Total Wet Volume:</strong> ${wetVolume.toFixed(2)} CFT</p>
-        <p><strong>Total Dry Volume:</strong> ${dryVolume.toFixed(2)} CFT</p>
-        <p><strong>Cement Volume:</strong> ${cementVolume.toFixed(2)} CFT (~${cementBags.toFixed(1)} bags)</p>
-        <p><strong>Sand Volume:</strong> ${sandVolume.toFixed(2)} CFT (~${sandCubes.toFixed(1)} cubes)</p>
-        <p><strong>Aggregate Volume:</strong> ${aggregateVolume.toFixed(2)} CFT (~${aggregateCubes.toFixed(1)} cubes)</p>
-
-        <div class="cubes">
-          <div class="cube sand">
-            <div>${sandCubes.toFixed(1)}</div>
-            <div>Sand Cubes</div>
-          </div>
-          <div class="cube metal">
-            <div>${aggregateCubes.toFixed(1)}</div>
-            <div>Metal Cubes</div>
-          </div>
+        <div class="result-box wet">
+          <div>Total Wet Volume</div>
+          <div>${wetVolume.toFixed(2)} CFT</div>
+        </div>
+        <div class="result-box dry">
+          <div>Total Dry Volume</div>
+          <div>${dryVolume.toFixed(2)} CFT</div>
+        </div>
+        <div class="result-box cement">
+          <div>Cement</div>
+          <div>${cementVolume.toFixed(2)} CFT</div>
+          <div>${cementBags.toFixed(1)} Bags</div>
+        </div>
+        <div class="result-box sand">
+          <div>Sand</div>
+          <div>${sandVolume.toFixed(2)} CFT</div>
+          <div>${sandCubes.toFixed(1)} Cubes</div>
+        </div>
+        <div class="result-box metal">
+          <div>Aggregate</div>
+          <div>${aggregateVolume.toFixed(2)} CFT</div>
+          <div>${aggregateCubes.toFixed(1)} Cubes</div>
         </div>
       `;
     }
